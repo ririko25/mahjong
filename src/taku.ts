@@ -1,4 +1,4 @@
 
-class taku {
+class Taku {
 
 }

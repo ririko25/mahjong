@@ -1,8 +1,8 @@
-export class Hai {
+export class Tile {
   name: string;
   order: number;
   red: boolean;
-  category: HaiCategory;
+  category: TileCategory;
   constructor(name: string) {
     this.name = name;
   }
@@ -15,38 +15,38 @@ export class Hai {
     return n >= 1 && n <= 9;
   }
 
-  public static createKazuhai(category: HaiCategory, n: number): Hai {
-    if (category == HaiCategory.Jihai) {
+  public static createSimples(category: TileCategory, n: number): Tile {
+    if (category == TileCategory.Honors) {
       throw new Error("ピンズ、マンズ、ソウズ以外のハイを送ってこないでね");
     }
 
-    if (!Hai.validateNumber(n)) {
+    if (!Tile.validateNumber(n)) {
       throw new Error("number is out of range");
     }
     const name = `${category}${n}`;
-    const kh = new Hai(name);
+    const kh = new Tile(name);
     kh.category = category;
     return kh;
   }
 
-  public static createJihai(name: string): Hai {
-    if (!JihaiNames.some((jn) => jn == name)) {
+  public static createHonors(name: string): Tile {
+    if (!HonorsNames.some((jn) => jn == name)) {
       throw new Error("ありえない字牌の名前だよ");
     }
-    const jh = new Hai(name);
-    jh.category = HaiCategory.Jihai;
+    const jh = new Tile(name);
+    jh.category = TileCategory.Honors;
     return jh;
   }
 }
 
-export enum HaiCategory {
-  Manzu = "m",
-  Sozu = "s",
-  Pinzu = "p",
-  Jihai = "j",
+export enum TileCategory {
+  Characters = "m",
+  Bamboo = "s",
+  Dots = "p",
+  Honors = "j",
 }
 
-export const KazuhaiNames = [
+export const SimplesNames = [
   "s1",
   "s2",
   "s3",
@@ -76,4 +76,17 @@ export const KazuhaiNames = [
   "m9",
 ];
 
-export const JihaiNames = ["ton", "nan", "sha", "pei", "haku", "hatu", "tyun"];
+export const HonorsNames = ["ew", "sw", "ww", "nw", "wd", "gd", "rd"];
+export const Honors = {
+  Winds: {
+    East: "ew",
+    West: "ww",
+    South: "sw",
+    North: "nw",
+  },
+  Dragons: {
+    White: "wd",
+    Green: "gd",
+    Red: "rd",
+  },
+};
