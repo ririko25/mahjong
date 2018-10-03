@@ -7,6 +7,11 @@ export class Hand {
     this.tiles = hand;
     this.opensets = [];
   }
+  sort() {
+    this.tiles.sort(function(a, b) {
+      return a.order - b.order;
+    });
+  }
 }
 
 export class OpenSet {

@@ -1,9 +1,21 @@
 export class Tile {
   name: string;
+  /**
+   * m1~m9(マンズ) = 11~19
+   * p1~p9(ピンズ) = 21~29
+   * s1~s9(ソウズ) = 31~39
+   * ew(東) = 40
+   * sw(南) = 41
+   * ww(西) = 42
+   * nw(北) = 43
+   * wd(白) = 44
+   * gd(發) = 45
+   * rd(中) = 46
+   **/
   order: number;
   red: boolean;
   category: TileCategory;
-  constructor(name: string) {
+  private constructor(name: string) {
     this.name = name;
   }
 
@@ -25,6 +37,18 @@ export class Tile {
     }
     const name = `${category}${n}`;
     const kh = new Tile(name);
+    let o = n;
+    if (category == TileCategory.Characters) {
+      o = o + 10;
+    } else if (category == TileCategory.Dots) {
+      o = o + 20;
+    } else if (category == TileCategory.Bamboo) {
+      o = o + 30;
+    }
+    kh.order = o;
+    //   m1~m9(マンズ) = 11~19
+    //   p1~p9(ピンズ) = 21~29
+    //   s1~s9(ソウズ) = 31~39
     kh.category = category;
     return kh;
   }
@@ -40,10 +64,10 @@ export class Tile {
 }
 
 export enum TileCategory {
-  Characters = "m",
+  Honors = "j",
   Bamboo = "s",
   Dots = "p",
-  Honors = "j",
+  Characters = "m",
 }
 
 export const SimplesNames = [
@@ -80,8 +104,8 @@ export const HonorsNames = ["ew", "sw", "ww", "nw", "wd", "gd", "rd"];
 export const Honors = {
   Winds: {
     East: "ew",
-    West: "ww",
     South: "sw",
+    West: "ww",
     North: "nw",
   },
   Dragons: {
