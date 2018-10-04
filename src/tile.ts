@@ -46,22 +46,44 @@ export class Tile {
       o = o + 30;
     }
     kh.order = o;
-    //   m1~m9(マンズ) = 11~19
-    //   p1~p9(ピンズ) = 21~29
-    //   s1~s9(ソウズ) = 31~39
     kh.category = category;
     return kh;
   }
 
-  public static createHonors(name: string): Tile {
-    if (!HonorsNames.some((jn) => jn == name)) {
-      throw new Error("ありえない字牌の名前だよ");
-    }
+  public static createHonors(name: Honors): Tile {
     const jh = new Tile(name);
+    if (name == Honors.EastWind) {
+      jh.order = 40;
+    }
+    if (name == Honors.SouthWind) {
+      jh.order = 41;
+    }
+    if (name == Honors.WestWind) {
+      jh.order = 42;
+    }
+    if (name == Honors.NorthWind) {
+      jh.order = 43;
+    }
+    if (name == Honors.WhiteDragon) {
+      jh.order = 44;
+    }
+    if (name == Honors.GreenDragon) {
+      jh.order = 45;
+    }
+    if (name == Honors.RedDragon) {
+      jh.order = 46;
+    }
     jh.category = TileCategory.Honors;
     return jh;
   }
 }
+// ew(東) = 40
+//    * sw(南) = 41
+//    * ww(西) = 42
+//    * nw(北) = 43
+//    * wd(白) = 44
+//    * gd(發) = 45
+//    * rd(中) = 46
 
 export enum TileCategory {
   Honors = "j",
@@ -101,16 +123,12 @@ export const SimplesNames = [
 ];
 
 export const HonorsNames = ["ew", "sw", "ww", "nw", "wd", "gd", "rd"];
-export const Honors = {
-  Winds: {
-    East: "ew",
-    South: "sw",
-    West: "ww",
-    North: "nw",
-  },
-  Dragons: {
-    White: "wd",
-    Green: "gd",
-    Red: "rd",
-  },
-};
+export enum Honors {
+  EastWind = "ew",
+  SouthWind = "sw",
+  WestWind = "ww",
+  NorthWind = "nw",
+  WhiteDragon = "wd",
+  GreenDragon = "gd",
+  RedDragon = "rd",
+}

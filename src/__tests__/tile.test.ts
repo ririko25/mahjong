@@ -32,13 +32,9 @@ describe("Tile class", () => {
 
   describe("#createHonors", function() {
     test("creates eastwind", () => {
-      const ton = Tile.createHonors(Honors.Winds.East);
-      expect(ton.name).toBe(Honors.Winds.East);
+      const ton = Tile.createHonors(Honors.EastWind);
+      expect(ton.name).toBe(Honors.EastWind);
       expect(ton.category).toBe(TileCategory.Honors);
-    });
-
-    it("will cause Error with sangen", () => {
-      expect(() => Tile.createHonors("sangen")).toThrow(Error);
     });
   });
 });
