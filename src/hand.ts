@@ -3,9 +3,9 @@ import { Tile } from "./tile";
 export class Hand {
   tiles: Tile[];
   opensets: OpenSet[];
-  constructor(hand: Tile[]) {
-    this.tiles = hand;
-    this.opensets = [];
+  constructor(tiles: Tile[], ...opensets: OpenSet[]) {
+    this.tiles = tiles;
+    this.opensets = opensets;
   }
   sort() {
     this.tiles.sort(function(a, b) {
