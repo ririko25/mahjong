@@ -4,30 +4,41 @@ import { Hand } from "../hand";
 describe("Hand class", () => {
   describe("#sort", () => {
     test("萬子が1から９まで順番に並ぶ", () => {
-      const h = new Hand([T.M2, T.M8, T.M7, T.M4, T.M3, T.M1, T.M6, T.M5, T.M9]);
+      const h = new Hand([T.m2, T.m8, T.m7, T.m4, T.m3, T.m1, T.m6, T.m5, T.m9]);
       h.sort();
-      expect(h.tiles).toEqual([T.M1, T.M2, T.M3, T.M4, T.M5, T.M6, T.M7, T.M8, T.M9]);
+      expect(h.tiles).toEqual([T.m1, T.m2, T.m3, T.m4, T.m5, T.m6, T.m7, T.m8, T.m9]);
     });
     test("マンズ、ピンズ、ソウズの順番で並ぶ", () => {
-      const h = new Hand([T.P2, T.M8, T.S7]);
+      const h = new Hand([T.p2, T.m8, T.s7]);
       h.sort();
-      expect(h.tiles).toEqual([T.M8, T.P2, T.S7]);
+      expect(h.tiles).toEqual([T.m8, T.p2, T.s7]);
     });
     test("東、南、西、北、白、發、中の順番で並ぶ", () => {
-      const h = new Hand([T.WW, T.EW, T.WD, T.SW, T.NW, T.GD, T.RD]);
+      const h = new Hand([T.ww, T.ew, T.wd, T.sw, T.nw, T.gd, T.rd]);
       h.sort();
-      expect(h.tiles).toEqual([T.EW, T.SW, T.WW, T.NW, T.WD, T.GD, T.RD]);
+      expect(h.tiles).toEqual([T.ew, T.sw, T.ww, T.nw, T.wd, T.gd, T.rd]);
     });
 
     test("マンズ、ピンズ、ソウズの順番で並ぶ。新記述", () => {
-      const h = new Hand([T.P2, T.M8, T.S7]);
+      const h = new Hand([T.p2, T.m8, T.s7]);
       h.sort();
 
-      expect(h.tiles).toEqual([T.M8, T.P2, T.S7]);
+      expect(h.tiles).toEqual([T.m8, T.p2, T.s7]);
 
       // const h2 = Hand.parse("p2,m8,s7|p1,p1,p1|wd,wd,wd,wd");
       // h2.sort();
       // expect(h2.tiles).toEqual(Hand.parse("m8,p2,s7"));
+    });
+  });
+
+  describe("#copy", () => {
+    test("handをcopyする", () => {
+      const h1 = new Hand([T.m1, T.s2, T.p1]);
+      const h2 = h1.copy();
+      expect(h2).toEqual(h1);
+      // h1をコピーしたh2をソートしても順番が変わっていないことをチェックする
+      h2.sort();
+      expect(h1.tiles).toEqual([T.m1, T.s2, T.p1]);
     });
   });
 });

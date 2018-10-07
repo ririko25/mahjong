@@ -12,6 +12,9 @@ export class Hand {
       return a.order - b.order;
     });
   }
+  copy(): Hand {
+    return new Hand(this.tiles.slice());
+  }
 }
 
 export class OpenSet {
