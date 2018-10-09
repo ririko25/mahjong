@@ -15,4 +15,17 @@ describe("Yaku class", () => {
       expect(result).toBe(false);
     });
   });
+
+  describe.skip("#isKokushi", () => {
+    test("国士無双が成立したらtrue", () => {
+      const h = new Hand([T.m1, T.m9, T.s1, T.s9, T.p1, T.p9, T.ew, T.sw, T.ew, T.nw, T.rd, T.gd, T.wd]);
+      const result = Yaku.isKokushi(h, T.s1);
+      expect(result).toBe(true);
+    });
+    test("国士無双が不成立ならfalse", () => {
+      const h = new Hand([T.m1, T.m9, T.s1, T.s9, T.p1, T.p9, T.ew, T.sw, T.ew, T.nw, T.rd, T.gd, T.wd]);
+      const result = Yaku.isKokushi(h, T.m2);
+      expect(result).toBe(false);
+    });
+  });
 });

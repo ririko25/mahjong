@@ -110,9 +110,7 @@ export enum Honors {
  * ハイを一つづつ生成できるようにした。
  * tile objectの生成を簡略化した。
  */
-export const T: {
-  [key: string]: Tile;
-} = {
+export const T = {
   m1: Tile.createSimples(TileCategory.Characters, 1),
   m2: Tile.createSimples(TileCategory.Characters, 2),
   m3: Tile.createSimples(TileCategory.Characters, 3),
@@ -151,3 +149,18 @@ export const T: {
   gd: Tile.createHonors(Honors.GreenDragon),
   rd: Tile.createHonors(Honors.RedDragon),
 };
+
+export function compareTiles(tiles1: Tile[], tiles2: Tile[]): boolean {
+  if (!tiles1 || !tiles2) {
+    return false;
+  }
+  if (tiles1.length != tiles2.length) {
+    return false;
+  }
+  for (let i = 0; i < tiles1.length; i++) {
+    if (tiles1[i].name != tiles2[i].name) {
+      return false;
+    }
+  }
+  return true;
+}

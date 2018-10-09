@@ -1,10 +1,11 @@
 import { Hand } from "./hand";
-import { Tile } from "./tile";
+import { Tile, T } from "./tile";
 
 export class Yaku {
   /**
    * isTiToi ちーといか判定した結果を返す
-   * @param h {Hand} - Hand class
+   * @param h {Hand} - 手牌
+   * @param tumo {Tile} - ツモした牌
    */
   public static isTiToi(h: Hand, tumo: Tile): boolean {
     //1.受け取ったhandを処理用にコピーを作る
@@ -37,6 +38,32 @@ export class Yaku {
         return false;
       }
     }
+    return true;
+  }
+
+  /**
+   * isKokushi 国士無双か判定した結果を返す
+   * @param h {Hand} - 手牌
+   * @param tumo {Tile} - ツモした牌
+   */
+  public static isKokushi(h: Hand, tumo: Tile): boolean {
+    //1.受け取ったhandを処理用にコピーを作る
+    const hc = h.copy();
+    //2.ツモを入れて牌をソートする
+    hc.tiles.push(tumo);
+    hc.sort();
+    // 3. opensetsが空
+    if (hc.opensets.length != 0) {
+      return false;
+    }
+
+    const nine = [T.m1, T.m9, T.s1, T.s9, T.p1, T.p9, T.ew, T.sw, T.ew, T.nw, T.rd, T.gd, T.wd];
+
+    const list = nine.map((t) => nine.concat([t]).sort((a, b) => a.order - b.order));
+    for (const a of list) {
+      return true;
+    }
+
     return true;
   }
 }
