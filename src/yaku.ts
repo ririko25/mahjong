@@ -1,5 +1,5 @@
 import { Hand } from "./hand";
-import { Tile, T } from "./tile";
+import { Tile, T, compareTiles } from "./tile";
 
 export class Yaku {
   /**
@@ -57,13 +57,15 @@ export class Yaku {
       return false;
     }
 
-    const nine = [T.m1, T.m9, T.s1, T.s9, T.p1, T.p9, T.ew, T.sw, T.ew, T.nw, T.rd, T.gd, T.wd];
+    //13面待ち状態を用意する
+    const thirteen = [T.m1, T.m9, T.p1, T.p9, T.s1, T.s9, T.ew, T.sw, T.ww, T.nw, T.wd, T.gd, T.rd];
 
-    const list = nine.map((t) => nine.concat([t]).sort((a, b) => a.order - b.order));
+    const list = thirteen.map((t) => thirteen.concat(t).sort((a, b) => a.order - b.order));
     for (const a of list) {
-      return true;
+      if (compareTiles(a, hc.tiles)) {
+        return true;
+      }
     }
-
-    return true;
+    return false;
   }
 }

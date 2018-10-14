@@ -150,6 +150,10 @@ export const T = {
   rd: Tile.createHonors(Honors.RedDragon),
 };
 
+/**
+ * 国士無双を作るとき、配列同士の比較をしたかったのに比較するためのメソッドがなかったので作りました。
+ * 牌が入った配列の中身を数、種類、順番で他の配列の中身と比較することとができる。
+ */
 export function compareTiles(tiles1: Tile[], tiles2: Tile[]): boolean {
   if (!tiles1 || !tiles2) {
     return false;
