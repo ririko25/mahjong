@@ -1,3 +1,1 @@
-class seki{
-    
-}
+// class seki {}

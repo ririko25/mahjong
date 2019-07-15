@@ -1,22 +1,20 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitUseStrict": true,
-    "importHelpers": true,
-    "newLine": "LF",
-    "removeComments": false,
-    "preserveConstEnums": true,
-    "outDir": "lib",
-    "sourceMap": true,
+    "target": "es2015",
+    "lib": ["esnext"],
+    "allowJs": false,
+    "strict": true,
+    "skipLibCheck": true,
     "declaration": true,
-    "watch": false,
-    "typeRoots": ["./node_modules/@types"]
+    "sourceMap": true,
+    "importHelpers": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "isolatedModules": false,
+    "newLine": "LF"
   },
-  "include": ["src/**/**.*"],
-  "exclude": ["node_modules", "test/**.*"]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

@@ -1,9 +1,9 @@
 export class Tile {
   name: string;
   /**
-   * m1~m9(マンズ) = 11~19
-   * p1~p9(ピンズ) = 21~29
-   * s1~s9(ソウズ) = 31~39
+   * m1-m9(マンズ) = 11-19
+   * p1-p9(ピンズ) = 21-29
+   * s1-s9(ソウズ) = 31-39
    * ew(東) = 40
    * sw(南) = 41
    * ww(西) = 42
@@ -17,6 +17,9 @@ export class Tile {
   category: TileCategory;
   private constructor(name: string) {
     this.name = name;
+    this.order = 0;
+    this.red = false;
+    this.category = TileCategory.Bamboo;
   }
 
   toString(): string {

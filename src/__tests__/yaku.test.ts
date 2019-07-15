@@ -28,4 +28,41 @@ describe("Yaku class", () => {
       expect(result).toBe(false);
     });
   });
+
+  // TODO あとで作る 上がり形かどうかを判定
+  // describe("#isLegal", () => {
+  //   test("",)
+  // });
+
+  //面子(3つのやつ)探す処理
+  describe("#findCompositions", () => {
+    test("字牌一面子のパターン", () => {
+      const p = [T.ew, T.ew, T.ew];
+      const result = Yaku.findCompositions(p);
+      expect(result).toEqual([[T.ew, T.ew, T.ew]]);
+    });
+    test("面子足りないパターン", () => {
+      const p = [T.ew, T.ew];
+      const result = Yaku.findCompositions(p);
+      expect(result).toEqual([]);
+    });
+  });
+
+  describe("#analyzeHonorsSpectrum", () => {
+    test("字牌のスペクトラム", () => {
+      const p = [T.ew, T.ew, T.ew, T.sw, T.ww, T.nw, T.wd, T.gd, T.rd];
+      const result = Yaku.analyzeHonorsSpectrum(p);
+      const want = [0, 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1];
+      expect(result).toEqual(want);
+    });
+  });
+
+  describe("#analyzeSimplesSpectrum", () => {
+    test("数牌のスペクトラム", () => {
+      const p = [T.m1, T.m1, T.m2, T.m3, T.m3, T.m9, T.m9, T.m9];
+      const result = Yaku.analyzeSimplesSpectrum(p);
+      const want = [0, 2, 1, 2, 0, 0, 0, 0, 0, 3];
+      expect(result).toEqual(want);
+    });
+  });
 });

@@ -1,7 +1,11 @@
 import { Hand } from "./hand";
-import { compareTiles, T } from "./tile";
+import { compareTiles, T, Tile } from "./tile";
 
 export class Yaku {
+  public static findCompositions(p: Tile[]): Tile[][] {
+    return [p];
+  }
+
   /**
    * isTiToi ちーといか判定した結果を返す
    * @param h {Hand} - 手牌
@@ -20,7 +24,9 @@ export class Yaku {
     for (const t of hc.tiles) {
       if (countmap.has(t.name)) {
         const c = countmap.get(t.name);
-        countmap.set(t.name, c + 1);
+        if (c) {
+          countmap.set(t.name, c + 1);
+        }
       } else {
         countmap.set(t.name, 1);
       }

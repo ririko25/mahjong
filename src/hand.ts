@@ -20,4 +20,8 @@ export class Hand {
 export class OpenSet {
   tiles: Tile[];
   revealed: boolean;
+  private constructor() {
+    this.tiles = [];
+    this.revealed = false;
+  }
 }
