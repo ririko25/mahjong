@@ -1,20 +1,18 @@
 import { Hand } from "./hand";
-import { Tile, T, compareTiles } from "./tile";
+import { compareTiles, T } from "./tile";
 
 export class Yaku {
   /**
    * isTiToi ちーといか判定した結果を返す
    * @param h {Hand} - 手牌
-   * @param tumo {Tile} - ツモした牌
    */
-  public static isTiToi(h: Hand, tumo: Tile): boolean {
+  public static isTiToi(h: Hand): boolean {
     //1.受け取ったhandを処理用にコピーを作る
     const hc = h.copy();
-    //2.ツモを入れて牌をソートする
-    hc.tiles.push(tumo);
+    //2.牌をソートする
     hc.sort();
     // 3. opensetsが空
-    if (hc.opensets.length != 0) {
+    if (hc.opensets.length !== 0) {
       return false;
     }
     // 4. 7種類ある
@@ -29,12 +27,12 @@ export class Yaku {
     }
     // { "wd": 2, "m1": 2, "gd": 3, "s1": 1, "m2": 2, "m3": 2, "s2": 2 }
 
-    if (countmap.size != 7) {
+    if (countmap.size !== 7) {
       return false;
     }
     // 5. 牌の組み合わせの種類が、2つずつ同じかを判定する
     for (const c of countmap.values()) {
-      if (c != 2) {
+      if (c !== 2) {
         return false;
       }
     }
@@ -44,16 +42,14 @@ export class Yaku {
   /**
    * isKokushi 国士無双か判定した結果を返す
    * @param h {Hand} - 手牌
-   * @param tumo {Tile} - ツモした牌
    */
-  public static isKokushi(h: Hand, tumo: Tile): boolean {
+  public static isKokushi(h: Hand): boolean {
     //1.受け取ったhandを処理用にコピーを作る
     const hc = h.copy();
-    //2.ツモを入れて牌をソートする
-    hc.tiles.push(tumo);
+    //2.牌をソートする
     hc.sort();
     // 3. opensetsが空
-    if (hc.opensets.length != 0) {
+    if (hc.opensets.length !== 0) {
       return false;
     }
 
