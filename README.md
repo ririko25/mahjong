@@ -38,6 +38,10 @@ HTML5 + JavaScript で動作する麻雀アプリ「電脳麻将」
 
 - http://hp.vector.co.jp/authors/VA046927/mjscore/mjalgorism.html
 
+シャンテン数計算アルゴリズム
+
+- http://ara.moo.jp/mjhmr/shanten.htm
+
 ## 素材
 
 麻雀素材
