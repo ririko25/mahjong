@@ -2,8 +2,34 @@ import { Hand } from "./hand";
 import { compareTiles, T, Tile } from "./tile";
 
 export class Yaku {
-  public static findCompositions(p: Tile[]): Tile[][] {
-    return [p];
+  public static findCompositions(tiles: Tile[]): Tile[][] {
+    return [tiles];
+  }
+
+  public static analyzeHonorsSpectrum(tiles: Tile[]): number[] {
+    const spectrum: number[] = [];
+    for (let i = 0; i < 14; i++) {
+      spectrum[i] = 0;
+    }
+
+    tiles.forEach((t) => {
+      const index = (t.order % 40) * 2 + 1;
+      spectrum[index]++;
+    });
+    return spectrum;
+  }
+
+  public static analyzeSimplesSpectrum(tiles: Tile[]): number[] {
+    const spectrum: number[] = [];
+    for (let i = 0; i < 10; i++) {
+      spectrum[i] = 0;
+    }
+
+    tiles.forEach((t) => {
+      const index = t.order % 10;
+      spectrum[index]++;
+    });
+    return spectrum;
   }
 
   /**
