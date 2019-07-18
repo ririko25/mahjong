@@ -1,5 +1,7 @@
 # mahjong
 
+[![Build Status](https://travis-ci.com/ririko25/mahjong.svg?branch=master)](https://travis-ci.com/ririko25/mahjong)
+
 麻雀の基本ライブラリー
 
 # 参考サイト
