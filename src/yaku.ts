@@ -32,6 +32,18 @@ export class Yaku {
     return spectrum;
   }
 
+  public static pickPongs(spectrum: number[]): [number[][], number[]] {
+    const result: number[][] = [];
+    const left = Array.from(spectrum);
+    for (let i = 0; i < left.length; i++) {
+      if (left[i] >= 3) {
+        left[i] -= 3;
+        result.push([i, i, i]);
+      }
+    }
+    return [result, left];
+  }
+
   /**
    * isTiToi ちーといか判定した結果を返す
    * @param h {Hand} - 手牌

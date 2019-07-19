@@ -65,4 +65,22 @@ describe("Yaku class", () => {
       expect(result).toEqual(want);
     });
   });
+
+  describe("#pickPongs", () => {
+    test("刻子が二つあるパターン", () => {
+      const input = [0, 3, 1, 0, 0, 0, 0, 0, 0, 3];
+      const [result, left] = Yaku.pickPongs(input);
+      const wantResult = [[1, 1, 1], [9, 9, 9]];
+      const wantLeft = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0];
+      expect(result).toEqual(wantResult);
+      expect(left).toEqual(wantLeft);
+    });
+  });
 });
+
+//   [2]=1
+// [3]=2
+// [4]=2
+// [5]=2
+// [6]=4
+// [7]=1
