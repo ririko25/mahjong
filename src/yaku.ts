@@ -1,9 +1,46 @@
 import { Hand } from "./hand";
-import { compareTiles, T, Tile } from "./tile";
+import { compareTiles, T, Tile, TileCategory } from "./tile";
 
 export class Yaku {
+  /**
+   * 同じ種類の牌から面子を見つける
+   * 呼ぶ前に牌のカテゴリーを1種類にしておく必要がある
+   * @param tiles
+   * @returns compositions
+   */
   public static findCompositions(tiles: Tile[]): Tile[][] {
-    return [tiles];
+    const category = tiles[0].category;
+    const spectrum =
+      category === TileCategory.Honors ? this.analyzeHonorsSpectrum(tiles) : this.analyzeSimplesSpectrum(tiles);
+
+    // 刻子、順子の順で抜き出す場合と順子、刻子の順で抜き出す場合の両方を試してみる
+    // (順序によって正しく取れない場合がある為)
+    let result: number[][];
+    let left: number[];
+    const resultPongChow: number[][] = [];
+    [result, left] = this.pickPongs(spectrum);
+    result.forEach((r) => resultPongChow.push(r));
+    [result, left] = this.pickChows(left);
+    result.forEach((r) => resultPongChow.push(r));
+
+    const resultChowPong: number[][] = [];
+    [result, left] = this.pickChows(spectrum);
+    result.forEach((r) => resultChowPong.push(r));
+    [result, left] = this.pickPongs(spectrum);
+    result.forEach((r) => resultChowPong.push(r));
+
+    const largest = resultPongChow.length >= resultChowPong.length ? resultPongChow : resultChowPong;
+
+    return largest.map((r) =>
+      r.map((t) => {
+        if (category === TileCategory.Honors) {
+          const index = (t - 1) / 2;
+          return Tile.createHonorsFromIndex(index);
+        }
+
+        return Tile.createSimples(category, t);
+      })
+    );
   }
 
   public static analyzeHonorsSpectrum(tiles: Tile[]): number[] {
@@ -39,6 +76,20 @@ export class Yaku {
       if (left[i] >= 3) {
         left[i] -= 3;
         result.push([i, i, i]);
+      }
+    }
+    return [result, left];
+  }
+
+  public static pickChows(spectrum: number[]): [number[][], number[]] {
+    const result: number[][] = [];
+    const left = Array.from(spectrum);
+    for (let i = 0; i < left.length - 2; i++) {
+      if (left[i] >= 1 && left[i + 1] >= 1 && left[i + 2] >= 1) {
+        left[i] -= 1;
+        left[i + 1] -= 1;
+        left[i + 2] -= 1;
+        result.push([i, i + 1, i + 2]);
       }
     }
     return [result, left];

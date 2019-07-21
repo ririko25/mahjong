@@ -79,6 +79,10 @@ export class Tile {
     jh.category = TileCategory.Honors;
     return jh;
   }
+
+  public static createHonorsFromIndex(index: number): Tile {
+    return this.createHonors(HonorsNames[index]);
+  }
 }
 // ew(東) = 40
 //    * sw(南) = 41
@@ -99,7 +103,6 @@ export const BambooNames = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9"
 export const DotsNames = ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9"];
 export const CharactersNames = ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9"];
 
-export const HonorsNames = ["ew", "sw", "ww", "nw", "wd", "gd", "rd"];
 export enum Honors {
   EastWind = "ew",
   SouthWind = "sw",
@@ -109,6 +112,16 @@ export enum Honors {
   GreenDragon = "gd",
   RedDragon = "rd",
 }
+
+export const HonorsNames = [
+  Honors.EastWind,
+  Honors.SouthWind,
+  Honors.WestWind,
+  Honors.NorthWind,
+  Honors.WhiteDragon,
+  Honors.GreenDragon,
+  Honors.RedDragon,
+];
 /**
  * ハイを一つづつ生成できるようにした。
  * tile objectの生成を簡略化した。

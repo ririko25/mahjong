@@ -46,7 +46,19 @@ describe("Yaku class", () => {
       const result = Yaku.findCompositions(p);
       expect(result).toEqual([]);
     });
+    test("清一色パターン", () => {
+      const p = [T.s2, T.s3, T.s3, T.s4, T.s4, T.s5, T.s5, T.s6, T.s6, T.s6, T.s6, T.s7];
+      const result = Yaku.findCompositions(p);
+      expect(result).toEqual([[T.s6, T.s6, T.s6], [T.s2, T.s3, T.s4], [T.s3, T.s4, T.s5], [T.s5, T.s6, T.s7]]);
+    });
   });
+
+  //   [2]=1
+  // [3]=2
+  // [4]=2
+  // [5]=2
+  // [6]=4
+  // [7]=1
 
   describe("#analyzeHonorsSpectrum", () => {
     test("字牌のスペクトラム", () => {
@@ -76,11 +88,15 @@ describe("Yaku class", () => {
       expect(left).toEqual(wantLeft);
     });
   });
-});
 
-//   [2]=1
-// [3]=2
-// [4]=2
-// [5]=2
-// [6]=4
-// [7]=1
+  describe("#pickChows", () => {
+    test("順子が二つあるパターン", () => {
+      const input = [0, 1, 1, 2, 1, 1, 0, 0, 0, 1];
+      const [result, left] = Yaku.pickChows(input);
+      const wantResult = [[1, 2, 3], [3, 4, 5]];
+      const wantLeft = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
+      expect(result).toEqual(wantResult);
+      expect(left).toEqual(wantLeft);
+    });
+  });
+});
