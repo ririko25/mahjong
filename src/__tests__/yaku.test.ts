@@ -1,5 +1,5 @@
 import { Hand } from "../hand";
-import { T } from "../tile";
+import { T, Tile } from "../tile";
 import { Yaku } from "../yaku";
 
 describe("Yaku class", () => {
@@ -46,19 +46,17 @@ describe("Yaku class", () => {
       const result = Yaku.findCompositions(p);
       expect(result).toEqual([]);
     });
+    test("牌が一つも渡されていないパターン", () => {
+      const p: Tile[] = [];
+      const result = Yaku.findCompositions(p);
+      expect(result).toEqual([]);
+    });
     test("清一色パターン", () => {
       const p = [T.s2, T.s3, T.s3, T.s4, T.s4, T.s5, T.s5, T.s6, T.s6, T.s6, T.s6, T.s7];
       const result = Yaku.findCompositions(p);
       expect(result).toEqual([[T.s6, T.s6, T.s6], [T.s2, T.s3, T.s4], [T.s3, T.s4, T.s5], [T.s5, T.s6, T.s7]]);
     });
   });
-
-  //   [2]=1
-  // [3]=2
-  // [4]=2
-  // [5]=2
-  // [6]=4
-  // [7]=1
 
   describe("#analyzeHonorsSpectrum", () => {
     test("字牌のスペクトラム", () => {
@@ -97,6 +95,20 @@ describe("Yaku class", () => {
       const wantLeft = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
       expect(result).toEqual(wantResult);
       expect(left).toEqual(wantLeft);
+    });
+  });
+
+  describe("#pickMelds", () => {
+    test("清一色パターン", () => {
+      const p = [T.s1, T.s1, T.s2, T.s3, T.s3, T.s4, T.s4, T.s5, T.s5, T.s6, T.s6, T.s6, T.s6, T.s7];
+      const result = Yaku.pickMelds(p);
+      expect(result).toEqual([
+        [T.s6, T.s6, T.s6],
+        [T.s2, T.s3, T.s4],
+        [T.s3, T.s4, T.s5],
+        [T.s5, T.s6, T.s7],
+        [T.s1, T.s1],
+      ]);
     });
   });
 });

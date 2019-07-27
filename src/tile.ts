@@ -19,7 +19,7 @@ export class Tile {
     this.name = name;
     this.order = 0;
     this.red = false;
-    this.category = TileCategory.Bamboo;
+    this.category = TileCategory.Bamboos;
   }
 
   toString(): string {
@@ -45,7 +45,7 @@ export class Tile {
       o = o + 10;
     } else if (category == TileCategory.Dots) {
       o = o + 20;
-    } else if (category == TileCategory.Bamboo) {
+    } else if (category == TileCategory.Bamboos) {
       o = o + 30;
     }
     kh.order = o;
@@ -83,25 +83,18 @@ export class Tile {
   public static createHonorsFromIndex(index: number): Tile {
     return this.createHonors(HonorsNames[index]);
   }
+
+  public static fromName(name: string): Tile {
+    return tileNameMap[name];
+  }
 }
-// ew(東) = 40
-//    * sw(南) = 41
-//    * ww(西) = 42
-//    * nw(北) = 43
-//    * wd(白) = 44
-//    * gd(發) = 45
-//    * rd(中) = 46
 
 export enum TileCategory {
   Honors = "j",
-  Bamboo = "s",
+  Bamboos = "s",
   Dots = "p",
   Characters = "m",
 }
-
-export const BambooNames = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9"];
-export const DotsNames = ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9"];
-export const CharactersNames = ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9"];
 
 export enum Honors {
   EastWind = "ew",
@@ -147,15 +140,15 @@ export const T = {
   p8: Tile.createSimples(TileCategory.Dots, 8),
   p9: Tile.createSimples(TileCategory.Dots, 9),
 
-  s1: Tile.createSimples(TileCategory.Bamboo, 1),
-  s2: Tile.createSimples(TileCategory.Bamboo, 2),
-  s3: Tile.createSimples(TileCategory.Bamboo, 3),
-  s4: Tile.createSimples(TileCategory.Bamboo, 4),
-  s5: Tile.createSimples(TileCategory.Bamboo, 5),
-  s6: Tile.createSimples(TileCategory.Bamboo, 6),
-  s7: Tile.createSimples(TileCategory.Bamboo, 7),
-  s8: Tile.createSimples(TileCategory.Bamboo, 8),
-  s9: Tile.createSimples(TileCategory.Bamboo, 9),
+  s1: Tile.createSimples(TileCategory.Bamboos, 1),
+  s2: Tile.createSimples(TileCategory.Bamboos, 2),
+  s3: Tile.createSimples(TileCategory.Bamboos, 3),
+  s4: Tile.createSimples(TileCategory.Bamboos, 4),
+  s5: Tile.createSimples(TileCategory.Bamboos, 5),
+  s6: Tile.createSimples(TileCategory.Bamboos, 6),
+  s7: Tile.createSimples(TileCategory.Bamboos, 7),
+  s8: Tile.createSimples(TileCategory.Bamboos, 8),
+  s9: Tile.createSimples(TileCategory.Bamboos, 9),
 
   ew: Tile.createHonors(Honors.EastWind),
   sw: Tile.createHonors(Honors.SouthWind),
@@ -164,6 +157,45 @@ export const T = {
   wd: Tile.createHonors(Honors.WhiteDragon),
   gd: Tile.createHonors(Honors.GreenDragon),
   rd: Tile.createHonors(Honors.RedDragon),
+};
+
+type tileNameMapType = { [key: string]: Tile };
+
+const tileNameMap: tileNameMapType = {
+  m1: T.m1,
+  m2: T.m2,
+  m3: T.m3,
+  m4: T.m4,
+  m5: T.m5,
+  m6: T.m6,
+  m7: T.m7,
+  m8: T.m8,
+  m9: T.m9,
+  p1: T.p1,
+  p2: T.p2,
+  p3: T.p3,
+  p4: T.p4,
+  p5: T.p5,
+  p6: T.p6,
+  p7: T.p7,
+  p8: T.p8,
+  p9: T.p9,
+  s1: T.s1,
+  s2: T.s2,
+  s3: T.s3,
+  s4: T.s4,
+  s5: T.s5,
+  s6: T.s6,
+  s7: T.s7,
+  s8: T.s8,
+  s9: T.s9,
+  ew: T.ew,
+  sw: T.sw,
+  ww: T.ww,
+  nw: T.nw,
+  wd: T.wd,
+  gd: T.gd,
+  rd: T.rd,
 };
 
 /**

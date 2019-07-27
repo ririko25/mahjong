@@ -1,4 +1,4 @@
-import { Tile, T, TileCategory, Honors, compareTiles } from "../tile";
+import { compareTiles, Honors, T, Tile, TileCategory } from "../tile";
 
 describe("Tile class", () => {
   describe("#createSimples", () => {
@@ -12,8 +12,8 @@ describe("Tile class", () => {
       expect(p3.name).toBe("p3");
     });
 
-    it("creates Bamboo 9", () => {
-      const s9 = Tile.createSimples(TileCategory.Bamboo, 9);
+    it("creates Bamboos 9", () => {
+      const s9 = Tile.createSimples(TileCategory.Bamboos, 9);
       expect(s9.name).toBe("s9");
     });
 

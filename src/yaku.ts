@@ -2,6 +2,82 @@ import { Hand } from "./hand";
 import { compareTiles, T, Tile, TileCategory } from "./tile";
 
 export class Yaku {
+  // 上がり形候補が1つに絞れる前提で、返り値は候補を1セットだけ返すように作っておく
+  // 得点計算が判断に必要となった場合は、3次元配列で複数候補を返せるようにする
+  public static pickMelds(tiles: Tile[]): Tile[][] {
+    // 頭を抜き出す
+    const eyesList = this.makeEyesList(tiles);
+
+    for (const eye of eyesList) {
+      const noEyes = this.removeEyes(eye, tiles);
+
+      // 種類別に分ける
+      // findCompositionsを使って面子を取り出す
+      const splited = this.splitByCategory(noEyes);
+      const melds: Tile[][] = [];
+      for (const s of splited) {
+        const moge = this.findCompositions(s);
+        melds.push(...moge);
+      }
+      // 面子が4つ揃ってるか確認
+      if (melds.length === 4) {
+        melds.push([eye, eye]);
+        return melds;
+      }
+    }
+
+    return [];
+  }
+
+  public static makeEyesList(tiles: Tile[]): Tile[] {
+    const countMap: Map<string, number> = new Map();
+    tiles.forEach((t) => {
+      const cur = countMap.get(t.name);
+      if (cur) {
+        countMap.set(t.name, cur + 1);
+      } else {
+        countMap.set(t.name, 1);
+      }
+    });
+
+    const eyesList: Tile[] = [];
+    countMap.forEach((count, name) => {
+      if (count >= 2) {
+        eyesList.push(Tile.fromName(name));
+      }
+    });
+    return eyesList;
+  }
+
+  // tilesには影響を与えない
+  private static removeEyes(eye: Tile, tiles: Tile[]): Tile[] {
+    const copyTiles = tiles.slice().sort((a, b) => a.order - b.order);
+    const i = copyTiles.findIndex((t) => t.name === eye.name);
+    // ソート済みなので、2個まとめて消す
+    copyTiles.splice(i, 2);
+    return copyTiles;
+  }
+
+  private static splitByCategory(tiles: Tile[]): Tile[][] {
+    const charactors: Tile[] = [];
+    const dots: Tile[] = [];
+    const bamboos: Tile[] = [];
+    const honors: Tile[] = [];
+
+    tiles.forEach((t) => {
+      if (t.category === TileCategory.Honors) {
+        honors.push(t);
+      } else if (t.category === TileCategory.Dots) {
+        dots.push(t);
+      } else if (t.category === TileCategory.Bamboos) {
+        bamboos.push(t);
+      } else if (t.category === TileCategory.Characters) {
+        charactors.push(t);
+      }
+    });
+
+    return [charactors, dots, bamboos, honors];
+  }
   /**
    * 同じ種類の牌から面子を見つける
    * 呼ぶ前に牌のカテゴリーを1種類にしておく必要がある
@@ -9,6 +85,9 @@ export class Yaku {
    * @returns compositions
    */
   public static findCompositions(tiles: Tile[]): Tile[][] {
+    if (tiles.length === 0) {
+      return [];
+    }
     const category = tiles[0].category;
     const spectrum =
       category === TileCategory.Honors ? this.analyzeHonorsSpectrum(tiles) : this.analyzeSimplesSpectrum(tiles);
