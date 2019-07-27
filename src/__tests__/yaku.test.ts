@@ -110,5 +110,16 @@ describe("Yaku class", () => {
         [T.s1, T.s1],
       ]);
     });
+    test("チャンタ三色頭は字牌", () => {
+      const p = [T.nw, T.nw, T.p1, T.p2, T.p3, T.s1, T.s2, T.s3, T.m1, T.m2, T.m3, T.gd, T.gd, T.gd];
+      const result = Yaku.pickMelds(p);
+      expect(result).toEqual([
+        [T.m1, T.m2, T.m3],
+        [T.p1, T.p2, T.p3],
+        [T.s1, T.s2, T.s3],
+        [T.gd, T.gd, T.gd],
+        [T.nw, T.nw],
+      ]);
+    });
   });
 });
