@@ -20,7 +20,7 @@ export class Yaku {
         melds.push(...moge);
       }
       // 面子が4つ揃ってるか確認
-      if (melds.length === 4) {
+      if (melds.length === noEyes.length / 3) {
         melds.push([eye, eye]);
         return melds;
       }

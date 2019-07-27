@@ -121,5 +121,15 @@ describe("Yaku class", () => {
         [T.nw, T.nw],
       ]);
     });
+    test("一部鳴いてるトイトイでシャンポン待ちの時(頭と1面子のみ)", () => {
+      const p = [T.nw, T.nw, T.gd, T.gd, T.gd];
+      const result = Yaku.pickMelds(p);
+      expect(result).toEqual([[T.gd, T.gd, T.gd], [T.nw, T.nw]]);
+    });
+    test("頭のみの場合", () => {
+      const p = [T.nw, T.nw];
+      const result = Yaku.pickMelds(p);
+      expect(result).toEqual([[T.nw, T.nw]]);
+    });
   });
 });
