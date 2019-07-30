@@ -42,6 +42,23 @@ describe("Hand class", () => {
     });
   });
 
+  describe("#canStealKong", () => {
+    test("3つ同じ牌が手元にある時", () => {
+      const h = new Hand([T.m1, T.m1, T.m1, T.m3]);
+      expect(h.canStealKong(T.m1)).toBe(true);
+    });
+
+    test("2つしか同じ牌が手元に無い時はカン出来ない", () => {
+      const h = new Hand([T.m1, T.m1, T.m3, T.m4]);
+      expect(h.canStealKong(T.m1)).toBe(false);
+    });
+
+    test("同じ牌が手元に存在しない時", () => {
+      const h = new Hand([T.m1, T.m2, T.m3, T.m4]);
+      expect(h.canStealKong(T.m5)).toBe(false);
+    });
+  });
+
   describe("#canStealPong", () => {
     test("2つ同じ牌が手にあればポン出来る", () => {
       const h = new Hand([T.m1, T.m1, T.m2, T.m3]);

@@ -15,6 +15,11 @@ export class Hand {
   copy(): Hand {
     return new Hand(this.tiles.slice());
   }
+  canStealKong(tile: Tile): boolean {
+    const countMap = Tile.makeCountMapByOrder(this.tiles);
+    const count = countMap.get(tile.order);
+    return count !== undefined && count >= 3;
+  }
   canStealPong(tile: Tile): boolean {
     const countMap = Tile.makeCountMapByOrder(this.tiles);
     const count = countMap.get(tile.order);
