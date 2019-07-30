@@ -1,5 +1,5 @@
-import { T } from "../tile";
 import { Hand } from "../hand";
+import { T } from "../tile";
 
 describe("Hand class", () => {
   describe("#sort", () => {
@@ -39,6 +39,23 @@ describe("Hand class", () => {
       // h1をコピーしたh2をソートしても順番が変わっていないことをチェックする
       h2.sort();
       expect(h1.tiles).toEqual([T.m1, T.s2, T.p1]);
+    });
+  });
+
+  describe("#canStealPong", () => {
+    test("2つ同じ牌が手にあればポン出来る", () => {
+      const h = new Hand([T.m1, T.m1, T.m2, T.m3]);
+      expect(h.canStealPong(T.m1)).toBe(true);
+    });
+
+    test("2つ同じ牌が手に無い時はポン出来ない", () => {
+      const h = new Hand([T.m1, T.m2, T.m3, T.m4]);
+      expect(h.canStealPong(T.m1)).toBe(false);
+    });
+
+    test("3つ同じ牌が手にあってもポン出来る", () => {
+      const h = new Hand([T.m1, T.m1, T.m1, T.m2, T.m3]);
+      expect(h.canStealPong(T.m1)).toBe(true);
     });
   });
 });

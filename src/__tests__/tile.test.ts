@@ -33,6 +33,20 @@ describe("Tile class", () => {
       expect(ton.category).toBe(TileCategory.Honors);
     });
   });
+
+  describe("#makeCountMapByOrder", () => {
+    test("普通に数える", () => {
+      const tiles = [T.m1, T.m1, T.m1, T.s9, T.s9, T.p1, T.p9, T.ew, T.sw];
+      const want = new Map<number, number>();
+      want.set(T.m1.order, 3);
+      want.set(T.s9.order, 2);
+      want.set(T.p1.order, 1);
+      want.set(T.p9.order, 1);
+      want.set(T.ew.order, 1);
+      want.set(T.sw.order, 1);
+      expect(Tile.makeCountMapByOrder(tiles)).toEqual(want);
+    });
+  });
 });
 
 describe("Tile funcitons", () => {

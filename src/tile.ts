@@ -87,6 +87,21 @@ export class Tile {
   public static fromName(name: string): Tile {
     return tileNameMap[name];
   }
+
+  // orderごとの牌の数を数えてMap形式にする
+  public static makeCountMapByOrder(tiles: Tile[]): Map<number, number> {
+    const countMap: Map<number, number> = new Map();
+    tiles.forEach((t) => {
+      const cur = countMap.get(t.order);
+      if (cur) {
+        countMap.set(t.order, cur + 1);
+      } else {
+        countMap.set(t.order, 1);
+      }
+    });
+
+    return countMap;
+  }
 }
 
 export enum TileCategory {
