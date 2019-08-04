@@ -58,6 +58,21 @@ describe("Hand class", () => {
       expect(h.canStealKong(T.m5)).toBe(false);
     });
   });
+  //今書いてる処理
+  describe("#listChowTiles", () => {
+    test("カンチャンのテスト", () => {
+      const h = new Hand([T.m1, T.m3, T.m5, T.m6]);
+      expect(h.listChowTiles(T.m2)).toEqual([[T.m1, T.m3]]);
+    });
+    test("リャンメン左のテスト", () => {
+      const h = new Hand([T.m2, T.m3, T.m5, T.m6]);
+      expect(h.listChowTiles(T.m1)).toEqual([[T.m2, T.m3]]);
+    });
+    test("リャンメン右のテスト", () => {
+      const h = new Hand([T.m1, T.m2, T.m5, T.m6]);
+      expect(h.listChowTiles(T.m3)).toEqual([[T.m1, T.m2]]);
+    });
+  });
 
   describe("#canStealPong", () => {
     test("2つ同じ牌が手にあればポン出来る", () => {
