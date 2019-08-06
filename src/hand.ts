@@ -24,6 +24,17 @@ export class Hand {
   listChowTiles(tile: Tile): Tile[][] {
     const chowTiles: Tile[][] = [];
     const countMap = Tile.makeCountMapByOrder(this.tiles);
+    //リャンメン右処理
+    const hasLeftSides = countMap.has(tile.order - 1) && countMap.has(tile.order - 2);
+    if (hasLeftSides) {
+      const chowPair: Tile[] = [];
+      const left2 = this.tiles.find((t) => t.order === tile.order - 2);
+      const left1 = this.tiles.find((t) => t.order === tile.order - 1);
+      if (left2 && left1) {
+        chowPair.push(left2, left1);
+        chowTiles.push(chowPair);
+      }
+    }
     //カンチャン処理
     const hasBothSides = countMap.has(tile.order - 1) && countMap.has(tile.order + 1);
     if (hasBothSides) {
@@ -43,17 +54,6 @@ export class Hand {
       const right1 = this.tiles.find((t) => t.order === tile.order + 1);
       if (right2 && right1) {
         chowPair.push(right1, right2);
-        chowTiles.push(chowPair);
-      }
-    }
-    //リャンメン右処理
-    const hasLeftSides = countMap.has(tile.order - 1) && countMap.has(tile.order - 2);
-    if (hasLeftSides) {
-      const chowPair: Tile[] = [];
-      const left2 = this.tiles.find((t) => t.order === tile.order - 2);
-      const left1 = this.tiles.find((t) => t.order === tile.order - 1);
-      if (left2 && left1) {
-        chowPair.push(left2, left1);
         chowTiles.push(chowPair);
       }
     }

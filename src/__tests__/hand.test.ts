@@ -72,6 +72,10 @@ describe("Hand class", () => {
       const h = new Hand([T.m1, T.m2, T.m5, T.m6]);
       expect(h.listChowTiles(T.m3)).toEqual([[T.m1, T.m2]]);
     });
+    test("リャンメン左、リャンメン右、カンチャンパターンのテスト", () => {
+      const h = new Hand([T.m1, T.m2, T.m4, T.m5]);
+      expect(h.listChowTiles(T.m3)).toEqual([[T.m1, T.m2], [T.m2, T.m4], [T.m4, T.m5]]);
+    });
   });
 
   describe("#canStealPong", () => {
