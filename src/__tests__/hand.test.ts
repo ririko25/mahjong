@@ -58,7 +58,7 @@ describe("Hand class", () => {
       expect(h.canStealKong(T.m5)).toBe(false);
     });
   });
-  //今書いてる処理
+
   describe("#listChowTiles", () => {
     test("カンチャンのテスト", () => {
       const h = new Hand([T.m1, T.m3, T.m5, T.m6]);
@@ -75,6 +75,21 @@ describe("Hand class", () => {
     test("リャンメン左、リャンメン右、カンチャンパターンのテスト", () => {
       const h = new Hand([T.m1, T.m2, T.m4, T.m5]);
       expect(h.listChowTiles(T.m3)).toEqual([[T.m1, T.m2], [T.m2, T.m4], [T.m4, T.m5]]);
+    });
+  });
+
+  describe("#hasHiddenKong", () => {
+    test("同じ牌が4つ揃っていればture", () => {
+      const h = new Hand([T.s1, T.ew, T.ew, T.ew, T.ew, T.m1]);
+      expect(h.hasHiddenKong()).toEqual([T.ew]);
+    });
+    test("同じ牌が4つ揃っていないfalse", () => {
+      const h = new Hand([T.s1, T.ew, T.ew, T.ew, T.m1]);
+      expect(h.hasHiddenKong()).toEqual([]);
+    });
+    test("同じ牌が4つが2セット揃っている場合", () => {
+      const h = new Hand([T.m1, T.m1, T.m1, T.m1, T.ew, T.ew, T.ew, T.ew]);
+      expect(h.hasHiddenKong()).toEqual([T.m1, T.ew]);
     });
   });
 

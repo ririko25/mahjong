@@ -21,6 +21,20 @@ export class Hand {
     return count !== undefined && count >= 3;
   }
 
+  hasHiddenKong(): Tile[] {
+    const kongs: Tile[] = [];
+    const countMap = Tile.makeCountMapByOrder(this.tiles);
+    countMap.forEach((count, order) => {
+      if (count === 4) {
+        const kong = this.tiles.find((t) => t.order === order);
+        if (kong) {
+          kongs.push(kong);
+        }
+      }
+    });
+    return kongs;
+  }
+
   listChowTiles(tile: Tile): Tile[][] {
     const chowTiles: Tile[][] = [];
     const countMap = Tile.makeCountMapByOrder(this.tiles);
