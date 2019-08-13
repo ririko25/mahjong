@@ -21,6 +21,13 @@ export class Hand {
         return count !== undefined && count >= 3;
     }
 
+    stealKong(tile: Tile, stealFrom: SeatPosition) {
+        this.tiles.sort((a, b) => a.order - b.order);
+        const i = this.tiles.findIndex((t) => t.name === tile.name);
+        const removed = this.tiles.splice(i, 3);
+        this.opensets.push(new OpenSet([tile, ...removed], stealFrom, true));
+    }
+
     hasHiddenKong(): Tile[] {
         const kongs: Tile[] = [];
         const countMap = Tile.makeCountMapByOrder(this.tiles);

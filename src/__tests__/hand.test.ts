@@ -93,6 +93,16 @@ describe("Hand class", () => {
         });
     });
 
+    describe("#stealKong", () => {
+        test("かん実行", () => {
+            const h = new Hand([T.m1, T.m1, T.m1, T.m2, T.m3]);
+            h.stealKong(T.m1, SeatPosition.Across);
+
+            const want = new Hand([T.m2, T.m3], new OpenSet([T.m1, T.m1, T.m1, T.m1], SeatPosition.Across, true));
+            expect(h).toEqual(want);
+        });
+    });
+
     describe("#canStealPong", () => {
         test("2つ同じ牌が手にあればポン出来る", () => {
             const h = new Hand([T.m1, T.m1, T.m2, T.m3]);
