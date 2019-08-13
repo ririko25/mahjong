@@ -1,4 +1,4 @@
-import { Hand } from "../hand";
+import { Hand, OpenSet, SeatPosition } from "../hand";
 import { T } from "../tile";
 
 describe("Hand class", () => {
@@ -107,6 +107,16 @@ describe("Hand class", () => {
         test("3つ同じ牌が手にあってもポン出来る", () => {
             const h = new Hand([T.m1, T.m1, T.m1, T.m2, T.m3]);
             expect(h.canStealPong(T.m1)).toBe(true);
+        });
+    });
+
+    describe("#stealPong", () => {
+        test("ぽん実行", () => {
+            const h = new Hand([T.m1, T.m1, T.m2, T.m3]);
+            h.stealPong(T.m1, SeatPosition.Across);
+
+            const want = new Hand([T.m2, T.m3], new OpenSet([T.m1, T.m1, T.m1], SeatPosition.Across, true));
+            expect(h).toEqual(want);
         });
     });
 });

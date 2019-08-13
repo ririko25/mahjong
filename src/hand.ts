@@ -79,6 +79,13 @@ export class Hand {
         const count = countMap.get(tile.order);
         return count !== undefined && count >= 2;
     }
+
+    stealPong(tile: Tile, stealFrom: SeatPosition) {
+        this.tiles.sort((a, b) => a.order - b.order);
+        const i = this.tiles.findIndex((t) => t.name === tile.name);
+        const removed = this.tiles.splice(i, 2);
+        this.opensets.push(new OpenSet([tile, ...removed], stealFrom, true));
+    }
 }
 
 // 席の位置
@@ -93,8 +100,8 @@ export class OpenSet {
     tiles: Tile[];
     stolenFrom: SeatPosition;
     exposed: boolean; // 暗槓子と明槓子を区別する。明槓子、明刻子などはtrue
-    private constructor(tiles: Tile[], stolenFrom: SeatPosition, exposed: boolean) {
-        this.tiles = [];
+    public constructor(tiles: Tile[], stolenFrom: SeatPosition, exposed: boolean) {
+        this.tiles = [...tiles];
         this.stolenFrom = stolenFrom;
         this.exposed = exposed;
     }
