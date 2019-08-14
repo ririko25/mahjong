@@ -78,6 +78,16 @@ describe("Hand class", () => {
         });
     });
 
+    describe("#stealChow", () => {
+        test("ちー実行", () => {
+            const h = new Hand([T.m1, T.m2, T.m4, T.m5]);
+            h.stealChow(T.m3, [T.m2, T.m4]);
+
+            const want = new Hand([T.m1, T.m5], new OpenSet([T.m3, T.m2, T.m4], SeatPosition.Left, true));
+            expect(h).toEqual(want);
+        });
+    });
+
     describe("#hasHiddenKong", () => {
         test("同じ牌が4つ揃っていればture", () => {
             const h = new Hand([T.s1, T.ew, T.ew, T.ew, T.ew, T.m1]);

@@ -81,6 +81,14 @@ export class Hand {
         return chowTiles;
     }
 
+    stealChow(tile: Tile, chowPair: Tile[]) {
+        chowPair.forEach((chowTile) => {
+            const i = this.tiles.findIndex((t) => t.name === chowTile.name);
+            this.tiles.splice(i, 1);
+        });
+        this.opensets.push(new OpenSet([tile, ...chowPair], SeatPosition.Left, true));
+    }
+
     canStealPong(tile: Tile): boolean {
         const countMap = Tile.makeCountMapByOrder(this.tiles);
         const count = countMap.get(tile.order);
