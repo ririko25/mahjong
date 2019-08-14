@@ -42,6 +42,13 @@ export class Hand {
         return kongs;
     }
 
+    exposeHiddenKong(tile: Tile) {
+        this.tiles.sort((a, b) => a.order - b.order);
+        const i = this.tiles.findIndex((t) => t.name === tile.name);
+        const removed = this.tiles.splice(i, 4);
+        this.opensets.push(new OpenSet(removed, SeatPosition.Self, false));
+    }
+
     listChowTiles(tile: Tile): Tile[][] {
         const chowTiles: Tile[][] = [];
         const countMap = Tile.makeCountMapByOrder(this.tiles);

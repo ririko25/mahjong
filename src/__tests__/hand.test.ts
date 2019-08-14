@@ -59,6 +59,16 @@ describe("Hand class", () => {
         });
     });
 
+    describe("#stealKong", () => {
+        test("みんかん実行", () => {
+            const h = new Hand([T.m1, T.m1, T.m1, T.m2, T.m3]);
+            h.stealKong(T.m1, SeatPosition.Across);
+
+            const want = new Hand([T.m2, T.m3], new OpenSet([T.m1, T.m1, T.m1, T.m1], SeatPosition.Across, true));
+            expect(h).toEqual(want);
+        });
+    });
+
     describe("#listChowTiles", () => {
         test("カンチャンのテスト", () => {
             const h = new Hand([T.m1, T.m3, T.m5, T.m6]);
@@ -103,12 +113,15 @@ describe("Hand class", () => {
         });
     });
 
-    describe("#stealKong", () => {
-        test("かん実行", () => {
-            const h = new Hand([T.m1, T.m1, T.m1, T.m2, T.m3]);
-            h.stealKong(T.m1, SeatPosition.Across);
+    describe("#exposeHiddenKong", () => {
+        test("あんかん実行", () => {
+            const h = new Hand([T.m1, T.m1, T.m1, T.m1, T.ew, T.ew, T.ew, T.ew]);
+            h.exposeHiddenKong(T.m1);
 
-            const want = new Hand([T.m2, T.m3], new OpenSet([T.m1, T.m1, T.m1, T.m1], SeatPosition.Across, true));
+            const want = new Hand(
+                [T.ew, T.ew, T.ew, T.ew],
+                new OpenSet([T.m1, T.m1, T.m1, T.m1], SeatPosition.Self, false)
+            );
             expect(h).toEqual(want);
         });
     });
