@@ -12,9 +12,11 @@ export class Hand {
             return a.order - b.order;
         });
     }
+
     copy(): Hand {
         return new Hand(this.tiles.slice());
     }
+
     canStealKong(tile: Tile): boolean {
         const countMap = Tile.makeCountMapByOrder(this.tiles);
         const count = countMap.get(tile.order);
@@ -107,6 +109,20 @@ export class Hand {
         const i = this.tiles.findIndex((t) => t.name === tile.name);
         const removed = this.tiles.splice(i, 2);
         this.opensets.push(new OpenSet([tile, ...removed], stealFrom, true));
+    }
+
+    //七対子シャンテン数計算処理
+    countToReadySevenPairs() {
+        let pairCount = 0;
+        let y = 0;
+        const countMap = Tile.makeCountMapByOrder(this.tiles);
+        countMap.forEach((count, _) => {
+            if (count >= 2) {
+                pairCount++;
+            }
+            y++;
+        });
+        return 6 - pairCount + Math.max(0, 7 - y);
     }
 }
 

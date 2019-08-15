@@ -152,4 +152,23 @@ describe("Hand class", () => {
             expect(h).toEqual(want);
         });
     });
+
+    //以下、チートイシャンテン数テスト
+    describe("#countToReadySevenPairs", () => {
+        test("七対子、一向聴の場合", () => {
+            const h = new Hand([T.m4, T.m5, T.m8, T.p6, T.p6, T.p7, T.s1, T.s1, T.s6, T.s6, T.s8, T.s8, T.wd, T.wd]);
+
+            expect(h.countToReadySevenPairs()).toBe(1);
+        });
+        test("七対子、刻子が混ざっている場合", () => {
+            const h = new Hand([T.m4, T.m5, T.m8, T.p6, T.p6, T.p6, T.s1, T.s1, T.s6, T.s6, T.s8, T.s8, T.wd, T.wd]);
+
+            expect(h.countToReadySevenPairs()).toBe(1);
+        });
+        test("七対子、槓子三つある場合", () => {
+            const h = new Hand([T.m4, T.m4, T.m4, T.m4, T.p6, T.p6, T.p6, T.p6, T.s1, T.s1, T.s1, T.s1, T.wd, T.wd]);
+
+            expect(h.countToReadySevenPairs()).toBe(5);
+        });
+    });
 });
