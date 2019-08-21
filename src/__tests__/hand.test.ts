@@ -153,7 +153,7 @@ describe("Hand class", () => {
         });
     });
 
-    //以下、チートイシャンテン数テスト
+    //以下、チートーイツシャンテン数テスト
     describe("#countToReadySevenPairs", () => {
         test("七対子、一向聴の場合", () => {
             const h = new Hand([T.m4, T.m5, T.m8, T.p6, T.p6, T.p7, T.s1, T.s1, T.s6, T.s6, T.s8, T.s8, T.wd, T.wd]);
@@ -169,6 +169,20 @@ describe("Hand class", () => {
             const h = new Hand([T.m4, T.m4, T.m4, T.m4, T.p6, T.p6, T.p6, T.p6, T.s1, T.s1, T.s1, T.s1, T.wd, T.wd]);
 
             expect(h.countToReadySevenPairs()).toBe(5);
+        });
+    });
+
+    //以下、国士無双シャンテン数テスト
+    describe("#countToReadyKokushi", () => {
+        test("国士無双、聴牌の場合", () => {
+            const h = new Hand([T.m1, T.m5, T.m9, T.p1, T.p9, T.s1, T.s9, T.ew, T.sw, T.ww, T.nw, T.wd, T.gd, T.gd]);
+
+            expect(h.countToReadyKokushi()).toBe(0);
+        });
+        test("国士無双、一向聴の場合", () => {
+            const h = new Hand([T.m1, T.m5, T.m9, T.p1, T.p9, T.s1, T.s9, T.ew, T.sw, T.ww, T.wd, T.wd, T.gd, T.gd]);
+
+            expect(h.countToReadyKokushi()).toBe(1);
         });
     });
 });

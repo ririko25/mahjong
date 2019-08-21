@@ -102,6 +102,24 @@ export class Tile {
 
         return countMap;
     }
+
+    //ヤオチュウハイならtrueを返す
+    public static isOrphanOrder(order: number): boolean {
+        if (order === 11) return true;
+        if (order === 19) return true;
+        if (order === 21) return true;
+        if (order === 29) return true;
+        if (order === 31) return true;
+        if (order === 39) return true;
+        if (order === 40) return true;
+        if (order === 41) return true;
+        if (order === 42) return true;
+        if (order === 43) return true;
+        if (order === 44) return true;
+        if (order === 45) return true;
+        if (order === 46) return true;
+        return false;
+    }
 }
 
 export enum TileCategory {

@@ -112,7 +112,7 @@ export class Hand {
     }
 
     //七対子シャンテン数計算処理
-    countToReadySevenPairs() {
+    countToReadySevenPairs(): number {
         let pairCount = 0;
         let y = 0;
         const countMap = Tile.makeCountMapByOrder(this.tiles);
@@ -123,6 +123,22 @@ export class Hand {
             y++;
         });
         return 6 - pairCount + Math.max(0, 7 - y);
+    }
+
+    //国士無双シャンテン数計算処理
+    countToReadyKokushi(): number {
+        let countOrphans = 0;
+        let orphansPairCount = 0;
+        const countMap = Tile.makeCountMapByOrder(this.tiles);
+        countMap.forEach((count, order) => {
+            if (Tile.isOrphanOrder(order)) {
+                countOrphans++;
+                if (count >= 2) {
+                    orphansPairCount = 1;
+                }
+            }
+        });
+        return 13 - countOrphans - orphansPairCount;
     }
 }
 
