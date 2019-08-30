@@ -185,4 +185,19 @@ describe("Hand class", () => {
             expect(h.countToReadyKokushi()).toBe(1);
         });
     });
+
+    //以下、一般シャンテン数テスト
+    //一般テスト未完成
+    describe("#countToReadyGeneral", () => {
+        test("一般、聴牌の場合", () => {
+            const h = new Hand([T.m1, T.m5, T.m9, T.p1, T.p9, T.s1, T.s9, T.ew, T.sw, T.ww, T.nw, T.wd, T.gd, T.gd]);
+
+            expect(h.countToReadyGeneral()).toBe(0);
+        });
+        test("一般、一向聴の場合", () => {
+            const h = new Hand([T.m1, T.m5, T.m9, T.p1, T.p9, T.s1, T.s9, T.ew, T.sw, T.ww, T.wd, T.wd, T.gd, T.gd]);
+
+            expect(h.countToReadyGeneral()).toBe(1);
+        });
+    });
 });

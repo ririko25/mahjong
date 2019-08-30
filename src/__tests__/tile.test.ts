@@ -1,36 +1,36 @@
-import { compareTiles, Honors, T, Tile, TileCategory } from "../tile";
+import { compareTiles, T, Tile, TileCategory, Zihai } from "../tile";
 
 describe("Tile class", () => {
-    describe("#createSimples", () => {
-        it("creates Characters 1", () => {
-            const m1 = Tile.createSimples(TileCategory.Characters, 1);
+    describe("#createKazuhai", () => {
+        it("creates Manzu 1", () => {
+            const m1 = Tile.createKazuhai(TileCategory.Manzu, 1);
             expect(m1.name).toBe("m1");
         });
 
-        it("creates Dots 3", () => {
-            const p3 = Tile.createSimples(TileCategory.Dots, 3);
+        it("creates Pinzu 3", () => {
+            const p3 = Tile.createKazuhai(TileCategory.Pinzu, 3);
             expect(p3.name).toBe("p3");
         });
 
-        it("creates Bamboos 9", () => {
-            const s9 = Tile.createSimples(TileCategory.Bamboos, 9);
+        it("creates Souzu 9", () => {
+            const s9 = Tile.createKazuhai(TileCategory.Souzu, 9);
             expect(s9.name).toBe("s9");
         });
 
         it("will cause Error with 0", () => {
-            expect(() => Tile.createSimples(TileCategory.Characters, 0)).toThrow(Error);
+            expect(() => Tile.createKazuhai(TileCategory.Manzu, 0)).toThrow(Error);
         });
 
-        it("will cause Error with Honors", () => {
-            expect(() => Tile.createSimples(TileCategory.Honors, 5)).toThrow(Error);
+        it("will cause Error with Zihai", () => {
+            expect(() => Tile.createKazuhai(TileCategory.Zihai, 5)).toThrow(Error);
         });
     });
 
-    describe("#createHonors", function() {
-        test("creates eastwind", () => {
-            const ton = Tile.createHonors(Honors.EastWind);
-            expect(ton.name).toBe(Honors.EastWind);
-            expect(ton.category).toBe(TileCategory.Honors);
+    describe("#createZihai", function() {
+        test("creates Ton", () => {
+            const ton = Tile.createZihai(Zihai.Ton);
+            expect(ton.name).toBe(Zihai.Ton);
+            expect(ton.category).toBe(TileCategory.Zihai);
         });
     });
 

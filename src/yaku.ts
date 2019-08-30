@@ -60,23 +60,23 @@ export class Yaku {
 
     private static splitByCategory(tiles: Tile[]): Tile[][] {
         const charactors: Tile[] = [];
-        const dots: Tile[] = [];
-        const bamboos: Tile[] = [];
-        const honors: Tile[] = [];
+        const Pinzu: Tile[] = [];
+        const Souzu: Tile[] = [];
+        const Zihai: Tile[] = [];
 
         tiles.forEach((t) => {
-            if (t.category === TileCategory.Honors) {
-                honors.push(t);
-            } else if (t.category === TileCategory.Dots) {
-                dots.push(t);
-            } else if (t.category === TileCategory.Bamboos) {
-                bamboos.push(t);
-            } else if (t.category === TileCategory.Characters) {
+            if (t.category === TileCategory.Zihai) {
+                Zihai.push(t);
+            } else if (t.category === TileCategory.Pinzu) {
+                Pinzu.push(t);
+            } else if (t.category === TileCategory.Souzu) {
+                Souzu.push(t);
+            } else if (t.category === TileCategory.Manzu) {
                 charactors.push(t);
             }
         });
 
-        return [charactors, dots, bamboos, honors];
+        return [charactors, Pinzu, Souzu, Zihai];
     }
     /**
      * 同じ種類の牌から面子を見つける
@@ -90,7 +90,7 @@ export class Yaku {
         }
         const category = tiles[0].category;
         const spectrum =
-            category === TileCategory.Honors ? this.analyzeHonorsSpectrum(tiles) : this.analyzeSimplesSpectrum(tiles);
+            category === TileCategory.Zihai ? this.analyzeZihaiSpectrum(tiles) : this.analyzeKazuhaiSpectrum(tiles);
 
         // 刻子、順子の順で抜き出す場合と順子、刻子の順で抜き出す場合の両方を試してみる
         // (順序によって正しく取れない場合がある為)
@@ -112,17 +112,17 @@ export class Yaku {
 
         return largest.map((r) =>
             r.map((t) => {
-                if (category === TileCategory.Honors) {
+                if (category === TileCategory.Zihai) {
                     const index = (t - 1) / 2;
-                    return Tile.createHonorsFromIndex(index);
+                    return Tile.createZihaiFromIndex(index);
                 }
 
-                return Tile.createSimples(category, t);
+                return Tile.createKazuhai(category, t);
             })
         );
     }
 
-    public static analyzeHonorsSpectrum(tiles: Tile[]): number[] {
+    public static analyzeZihaiSpectrum(tiles: Tile[]): number[] {
         const spectrum: number[] = [];
         for (let i = 0; i < 14; i++) {
             spectrum[i] = 0;
@@ -135,7 +135,7 @@ export class Yaku {
         return spectrum;
     }
 
-    public static analyzeSimplesSpectrum(tiles: Tile[]): number[] {
+    public static analyzeKazuhaiSpectrum(tiles: Tile[]): number[] {
         const spectrum: number[] = [];
         for (let i = 0; i < 10; i++) {
             spectrum[i] = 0;

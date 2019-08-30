@@ -58,19 +58,19 @@ describe("Yaku class", () => {
         });
     });
 
-    describe("#analyzeHonorsSpectrum", () => {
+    describe("#analyzeZihaiSpectrum", () => {
         test("字牌のスペクトラム", () => {
             const p = [T.ew, T.ew, T.ew, T.sw, T.ww, T.nw, T.wd, T.gd, T.rd];
-            const result = Yaku.analyzeHonorsSpectrum(p);
+            const result = Yaku.analyzeZihaiSpectrum(p);
             const want = [0, 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1];
             expect(result).toEqual(want);
         });
     });
 
-    describe("#analyzeSimplesSpectrum", () => {
+    describe("#analyzeKazuhaiSpectrum", () => {
         test("数牌のスペクトラム", () => {
             const p = [T.m1, T.m1, T.m2, T.m3, T.m3, T.m9, T.m9, T.m9];
-            const result = Yaku.analyzeSimplesSpectrum(p);
+            const result = Yaku.analyzeKazuhaiSpectrum(p);
             const want = [0, 2, 1, 2, 0, 0, 0, 0, 0, 3];
             expect(result).toEqual(want);
         });

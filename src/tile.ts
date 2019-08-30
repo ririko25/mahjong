@@ -19,7 +19,7 @@ export class Tile {
         this.name = name;
         this.order = 0;
         this.red = false;
-        this.category = TileCategory.Bamboos;
+        this.category = TileCategory.Souzu;
     }
 
     toString(): string {
@@ -30,8 +30,8 @@ export class Tile {
         return n >= 1 && n <= 9;
     }
 
-    public static createSimples(category: TileCategory, n: number): Tile {
-        if (category == TileCategory.Honors) {
+    public static createKazuhai(category: TileCategory, n: number): Tile {
+        if (category == TileCategory.Zihai) {
             throw new Error("ピンズ、マンズ、ソウズ以外のハイを送ってこないでね");
         }
 
@@ -41,11 +41,11 @@ export class Tile {
         const name = `${category}${n}`;
         const kh = new Tile(name);
         let o = n;
-        if (category == TileCategory.Characters) {
+        if (category == TileCategory.Manzu) {
             o = o + 10;
-        } else if (category == TileCategory.Dots) {
+        } else if (category == TileCategory.Pinzu) {
             o = o + 20;
-        } else if (category == TileCategory.Bamboos) {
+        } else if (category == TileCategory.Souzu) {
             o = o + 30;
         }
         kh.order = o;
@@ -53,35 +53,35 @@ export class Tile {
         return kh;
     }
 
-    public static createHonors(name: Honors): Tile {
+    public static createZihai(name: Zihai): Tile {
         const jh = new Tile(name);
-        if (name == Honors.EastWind) {
+        if (name == Zihai.Ton) {
             jh.order = 40;
         }
-        if (name == Honors.SouthWind) {
+        if (name == Zihai.Nan) {
             jh.order = 41;
         }
-        if (name == Honors.WestWind) {
+        if (name == Zihai.Sha) {
             jh.order = 42;
         }
-        if (name == Honors.NorthWind) {
+        if (name == Zihai.Pei) {
             jh.order = 43;
         }
-        if (name == Honors.WhiteDragon) {
+        if (name == Zihai.Haku) {
             jh.order = 44;
         }
-        if (name == Honors.GreenDragon) {
+        if (name == Zihai.Hatu) {
             jh.order = 45;
         }
-        if (name == Honors.RedDragon) {
+        if (name == Zihai.Chun) {
             jh.order = 46;
         }
-        jh.category = TileCategory.Honors;
+        jh.category = TileCategory.Zihai;
         return jh;
     }
 
-    public static createHonorsFromIndex(index: number): Tile {
-        return this.createHonors(HonorsNames[index]);
+    public static createZihaiFromIndex(index: number): Tile {
+        return this.createZihai(ZihaiNames[index]);
     }
 
     public static fromName(name: string): Tile {
@@ -123,73 +123,65 @@ export class Tile {
 }
 
 export enum TileCategory {
-    Honors = "j",
-    Bamboos = "s",
-    Dots = "p",
-    Characters = "m",
+    Zihai = "j",
+    Souzu = "s",
+    Pinzu = "p",
+    Manzu = "m",
 }
 
-export enum Honors {
-    EastWind = "ew",
-    SouthWind = "sw",
-    WestWind = "ww",
-    NorthWind = "nw",
-    WhiteDragon = "wd",
-    GreenDragon = "gd",
-    RedDragon = "rd",
+export enum Zihai {
+    Ton = "ew",
+    Nan = "sw",
+    Sha = "ww",
+    Pei = "nw",
+    Haku = "wd",
+    Hatu = "gd",
+    Chun = "rd",
 }
 
-export const HonorsNames = [
-    Honors.EastWind,
-    Honors.SouthWind,
-    Honors.WestWind,
-    Honors.NorthWind,
-    Honors.WhiteDragon,
-    Honors.GreenDragon,
-    Honors.RedDragon,
-];
+export const ZihaiNames = [Zihai.Ton, Zihai.Nan, Zihai.Sha, Zihai.Pei, Zihai.Haku, Zihai.Hatu, Zihai.Chun];
 /**
  * ハイを一つづつ生成できるようにした。
  * tile objectの生成を簡略化した。
  */
 export const T = {
-    m1: Tile.createSimples(TileCategory.Characters, 1),
-    m2: Tile.createSimples(TileCategory.Characters, 2),
-    m3: Tile.createSimples(TileCategory.Characters, 3),
-    m4: Tile.createSimples(TileCategory.Characters, 4),
-    m5: Tile.createSimples(TileCategory.Characters, 5),
-    m6: Tile.createSimples(TileCategory.Characters, 6),
-    m7: Tile.createSimples(TileCategory.Characters, 7),
-    m8: Tile.createSimples(TileCategory.Characters, 8),
-    m9: Tile.createSimples(TileCategory.Characters, 9),
+    m1: Tile.createKazuhai(TileCategory.Manzu, 1),
+    m2: Tile.createKazuhai(TileCategory.Manzu, 2),
+    m3: Tile.createKazuhai(TileCategory.Manzu, 3),
+    m4: Tile.createKazuhai(TileCategory.Manzu, 4),
+    m5: Tile.createKazuhai(TileCategory.Manzu, 5),
+    m6: Tile.createKazuhai(TileCategory.Manzu, 6),
+    m7: Tile.createKazuhai(TileCategory.Manzu, 7),
+    m8: Tile.createKazuhai(TileCategory.Manzu, 8),
+    m9: Tile.createKazuhai(TileCategory.Manzu, 9),
 
-    p1: Tile.createSimples(TileCategory.Dots, 1),
-    p2: Tile.createSimples(TileCategory.Dots, 2),
-    p3: Tile.createSimples(TileCategory.Dots, 3),
-    p4: Tile.createSimples(TileCategory.Dots, 4),
-    p5: Tile.createSimples(TileCategory.Dots, 5),
-    p6: Tile.createSimples(TileCategory.Dots, 6),
-    p7: Tile.createSimples(TileCategory.Dots, 7),
-    p8: Tile.createSimples(TileCategory.Dots, 8),
-    p9: Tile.createSimples(TileCategory.Dots, 9),
+    p1: Tile.createKazuhai(TileCategory.Pinzu, 1),
+    p2: Tile.createKazuhai(TileCategory.Pinzu, 2),
+    p3: Tile.createKazuhai(TileCategory.Pinzu, 3),
+    p4: Tile.createKazuhai(TileCategory.Pinzu, 4),
+    p5: Tile.createKazuhai(TileCategory.Pinzu, 5),
+    p6: Tile.createKazuhai(TileCategory.Pinzu, 6),
+    p7: Tile.createKazuhai(TileCategory.Pinzu, 7),
+    p8: Tile.createKazuhai(TileCategory.Pinzu, 8),
+    p9: Tile.createKazuhai(TileCategory.Pinzu, 9),
 
-    s1: Tile.createSimples(TileCategory.Bamboos, 1),
-    s2: Tile.createSimples(TileCategory.Bamboos, 2),
-    s3: Tile.createSimples(TileCategory.Bamboos, 3),
-    s4: Tile.createSimples(TileCategory.Bamboos, 4),
-    s5: Tile.createSimples(TileCategory.Bamboos, 5),
-    s6: Tile.createSimples(TileCategory.Bamboos, 6),
-    s7: Tile.createSimples(TileCategory.Bamboos, 7),
-    s8: Tile.createSimples(TileCategory.Bamboos, 8),
-    s9: Tile.createSimples(TileCategory.Bamboos, 9),
+    s1: Tile.createKazuhai(TileCategory.Souzu, 1),
+    s2: Tile.createKazuhai(TileCategory.Souzu, 2),
+    s3: Tile.createKazuhai(TileCategory.Souzu, 3),
+    s4: Tile.createKazuhai(TileCategory.Souzu, 4),
+    s5: Tile.createKazuhai(TileCategory.Souzu, 5),
+    s6: Tile.createKazuhai(TileCategory.Souzu, 6),
+    s7: Tile.createKazuhai(TileCategory.Souzu, 7),
+    s8: Tile.createKazuhai(TileCategory.Souzu, 8),
+    s9: Tile.createKazuhai(TileCategory.Souzu, 9),
 
-    ew: Tile.createHonors(Honors.EastWind),
-    sw: Tile.createHonors(Honors.SouthWind),
-    ww: Tile.createHonors(Honors.WestWind),
-    nw: Tile.createHonors(Honors.NorthWind),
-    wd: Tile.createHonors(Honors.WhiteDragon),
-    gd: Tile.createHonors(Honors.GreenDragon),
-    rd: Tile.createHonors(Honors.RedDragon),
+    ew: Tile.createZihai(Zihai.Ton),
+    sw: Tile.createZihai(Zihai.Nan),
+    ww: Tile.createZihai(Zihai.Sha),
+    nw: Tile.createZihai(Zihai.Pei),
+    wd: Tile.createZihai(Zihai.Haku),
+    gd: Tile.createZihai(Zihai.Hatu),
+    rd: Tile.createZihai(Zihai.Chun),
 };
 
 type tileNameMapType = { [key: string]: Tile };
